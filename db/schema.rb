@@ -10,5 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_16_014232) do
+  create_table "tasks", force: :cascade do |t|
+    t.string "user", limit: 11, null: false
+    t.string "photo"
+    t.boolean "finished", default: false
+    t.string "title", limit: 8, null: false
+    t.text "description", limit: 255, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end
