@@ -2,7 +2,7 @@ class TasksController < ApplicationController
     before_action :set_task, only: [:show, :update, :destroy]
   
     def index
-      @tasks = Task.all
+      @tasks = Task.order(created_at: :desc)
       render json: {
         message: "Tarefas carregadas com sucesso!",
         data: @tasks
@@ -16,7 +16,10 @@ class TasksController < ApplicationController
     def create
       @task = Task.new(task_params)
       if @task.save
-        render json: @task, status: :created
+        render json: {
+          message: "Tarefa #{@task.title} inserida com sucesso.",
+          data: @task
+        }, status: :created
       else
         render json: @task.errors, status: :unprocessable_entity
       end
@@ -32,6 +35,7 @@ class TasksController < ApplicationController
   
     def destroy
       @task.destroy
+      render json: { message: 'Tarefa excluída com sucesso' }
     end
   
     private
